@@ -13,7 +13,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "tsc": "2.0.4",
     "@iconify/react": "^4.0.0",
     "@types/react": "^18.0.35",
     "@vitejs/plugin-react": "^3.0.1",
@@ -21,7 +20,8 @@
     "postcss": "^8.4.16",
     "prettier": "^2.8.4",
     "tailwindcss": "^3.1.8",
-    "vite": "^4.0.4",
-    "typescript": "^4.6.4"
+    "tsc": "2.0.4",
+    "typescript": "^4.9.5",
+    "vite": "^4.0.4"
   }
 }
