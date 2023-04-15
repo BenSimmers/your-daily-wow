@@ -1,4 +1,3 @@
-import { local } from "fp-ts/lib/Reader";
 import { Wow } from "../types";
 
 export async function getRandomWow(url: string) {
