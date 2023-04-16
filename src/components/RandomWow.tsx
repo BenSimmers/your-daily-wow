@@ -13,9 +13,7 @@ export default function RandomWow() {
     setLoading(true);
     setError(false);
     try {
-      const wow = await getRandomWow(
-        "https://owen-wilson-wow-api.onrender.com/wows/random"
-      );
+      const wow = await getRandomWow("https://owen-wilson-wow-api.onrender.com/wows/random");
       setWow(wow);
       setIsCached(true);
     } catch (error) {

@@ -7,7 +7,7 @@ export async function getRandomWow(url: string) {
   }
   const response = await fetch(url);
   const data = await response.json();
-  localStorage.setItem("wow", JSON.stringify(data[0], (key, value) => key === "timestamp" ? value : value));
+  localStorage.setItem("wow", JSON.stringify(data[0]));
   setTimeout(() => {
     localStorage.removeItem("wow");
   }
