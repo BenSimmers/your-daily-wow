@@ -1,25 +1,27 @@
 import { Wow } from "../types";
 import { getRandomWow } from "../data/GETRandomWow";
-import React, { useState, useEffect } from "react";
-import Card from "./Card";
+import React, { useState } from "react";
+import { Card } from "./Card";
 
-export default function RandomWow() {
+type FetchStatus = "idle" | "loading" | "error" | "success";
+
+const RANDOM_WOW_API_URL: string  =
+  "https://owen-wilson-wow-api.onrender.com/wows/random";
+
+export const RandomWow: React.FunctionComponent = () => {
   const [wow, setWow] = useState<Wow | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [isCached, setIsCached] = useState(false);
+  const [fetchStatus, setFetchStatus] = useState<FetchStatus>("idle");
 
   const handleClick = async () => {
-    setLoading(true);
-    setError(false);
+    setFetchStatus("loading");
     try {
-      const wow = await getRandomWow("https://owen-wilson-wow-api.onrender.com/wows/random");
-      setWow(wow);
-      setIsCached(true);
+      const fetchedWow = await getRandomWow(RANDOM_WOW_API_URL);
+      setWow(fetchedWow);
+      setFetchStatus("success");
     } catch (error) {
-      setError(true);
+      console.error("Failed to fetch wow:", error);
+      setFetchStatus("error");
     }
-    setLoading(false);
   };
 
   return (
@@ -27,18 +29,20 @@ export default function RandomWow() {
       <div className="text-center">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          disabled={loading || isCached}
+          disabled={fetchStatus === "success" || wow !== null}
           onClick={handleClick}
         >
           Get your wow
         </button>
         <div className="mt-2" />
-        {isCached && <p>Wow come back at this time tomorrow to get a new one</p>}
+        {fetchStatus === "success" && wow && (
+          <p>Wow come back at this time tomorrow to get a new one</p>
+        )}
         <div className="mt-2" />
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Oops, something went wrong!</p>}
       {wow && <Card wow={wow} />}
+      {fetchStatus === "loading" && <p>Loading...</p>}
+      {fetchStatus === "error" && <p>There was an error</p>}
     </div>
   );
-}
+};

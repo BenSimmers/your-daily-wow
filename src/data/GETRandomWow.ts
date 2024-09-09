@@ -1,6 +1,6 @@
 import { Wow } from "../types";
 
-export async function getRandomWow(url: string) {
+export const getRandomWow = async (url: string): Promise<Wow> => {
   const cachedData = localStorage.getItem("wow");
   if (cachedData) {
     return JSON.parse(cachedData) as Wow;
@@ -10,7 +10,6 @@ export async function getRandomWow(url: string) {
   localStorage.setItem("wow", JSON.stringify(data[0]));
   setTimeout(() => {
     localStorage.removeItem("wow");
-  }
-  , 1000 * 60 * 60 * 24);
+  }, 1000 * 60 * 60 * 24);
   return data[0];
-}
+};

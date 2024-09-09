@@ -1,6 +1,5 @@
-import { useState } from "react";
-import RandomWow from "./components/RandomWow";
-import Header from "./components/Header";
+import { RandomWow } from "./components/RandomWow";
+import { Header } from "./components/Header";
 
 function App() {
   return (
